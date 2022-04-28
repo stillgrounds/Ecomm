@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+
+
+<section id="product" class="py-5 my-2" >
+    <div class="container">
+        <!-- Breadcrumb -->
+        <nav aria-label="Breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active" aria-current="page">
+                    <a href="{% url 'index' %}">Home</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    <a href="{% url 'category' %}">Product Category</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">{{show.title}}
+                </li>
+            </ol>
+        </nav>
+
+        <!-- Single product -->
+        <div class="row my-4 py-5">
+            {% if show %}
+                <div class="col-12 col-md-6">
+                    <img src ="{{ show.image.url }}" class="img-fluid" alt="{{show.title}}">
+                    </div>
+                            <div class="col-12 col-md-6">
+                            <h3>{{show.title}}</h3>
+                            <span>Views <i class="bi bi-eye"></i> : {{show.view_count}}</span>
+                            <hr>
+                            <p class="lead my-3"><span class="text-danger">Warranty</span>{{show.warranty}}</p>
+                            <h6>&#8358; 20000 <del>&#8358; 25000</del></h6>
+                            <p class="lead my-3"><span class="text-danger">Return Policy:</span>
+                                {{show.return_policy}}</p>
+                                {% if show.discount_price %}
+                                <h3>>&#8358; {{show.discount_price | intcomma}} <del class="text-danger">&#8358; {{show.price | intcomma}}</del>
+                                </h3>
+                                {% else %}
+                                <h3>&#8358; {{show.price | intcomma}}</h3>
+                                {% endif %}
+                                <p class="lead my-3">
+                                    {{show.description}}
+                                </p>
+                                <div class="d-grid">
+                                    <a href="{% url 'addtocart' show.id %}" class="btn btn-dark">Add to Cart</a>
+                                </div>                  
+                            </div>
+                    {% else %}
+                    <p class="lead p-4 m-4 bg-danger text-white"></p>
+            {% endif %}
+    </div>
+</section>
+
+{% endblock content %}

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+
+<section id="registerform" class="py-4 my-3" >
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mx-auto">
+                <div class="card p-4">
+                    <h4 class="'display-h4 mb-3 text-center text-decoration-underline">
+                        Register Here
+                    </h4>
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        {% for fields in form %}
+                            <div class="form-group my-2">
+                                {{fields.label}}
+                                {{fields}}
+                                {% for error in fields.errors %}
+                                    <small class="text-danger">{{error}}</small>                            
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
+                        <div class="g-grid">
+                            <button type="submit" class="btn btn-info">Register</button>
+                        </div>
+                        <div class="form-group mt-3">
+                            <a href="" class="p-3 text-danger">Already a user? Click to login</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}
